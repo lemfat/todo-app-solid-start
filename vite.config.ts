@@ -1,12 +1,10 @@
-import cloudflare from "solid-start-cloudflare-pages";
+import solidStartVercel from "solid-start-vercel";
 import solid from "solid-start/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [solid({
-    adapter: cloudflare({
-      envPath: true
-    })
+    adapter: solidStartVercel({ "edge": true })
   })],
   ssr: {
     external: ["@supabase/supabase-js"]
