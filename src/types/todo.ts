@@ -2,6 +2,6 @@ export type Todo = {
   id: number;
   title: string;
   isCompleted: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
 }

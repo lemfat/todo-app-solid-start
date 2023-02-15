@@ -1,24 +1,26 @@
 import { createRouteData, Title } from "solid-start";
-import AddTodo from "~/components/AddTodo";
 import TodoList from "~/components/TodoList";
-import { Todo } from "~/types/todo";
+import { supabase } from "~/lib/db";
 
 export function routeData() {
-  const getData = async () => {
-    const res = await fetch('http://localhost:3000/api/todo')
-    return (await res.json() as Todo[]);
-  }
-
-  const todos = createRouteData(getData, { "key": "todos" })
+  const todos = createRouteData(
+    async () => {
+      const { data, error } = (await supabase
+        .from("todos")
+        .select()
+        .order("created_at")
+      )
+      return data
+    },
+    { "key": "todos" }
+  )
   return { todos }
 }
 
 export default function Home() {
-
   return (
     <main class="text-center mx-auto text-gray-700 p-4">
       <Title>Todo app</Title>
-      <AddTodo />
       <TodoList />
     </main>
   );
